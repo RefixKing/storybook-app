@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Reading Stories - Fun Stories for Learning Readers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        } 
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .nav-tab:nth-child(2) {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
+
+        .nav-tab:nth-child(3) {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+        }
+
+        .nav-tab:nth-child(4) {
+            background: linear-gradient(135deg, #E91E63, #C2185B);
+        }
+
+        .content-section {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-subtitle {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            margin: 0 auto 3rem;
+            border-radius: 2px;
+        }
+
+        /* Story Cards */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-image {
+            height: 200px;
+            background: linear-gradient(135deg, #ff9a56, #ffad56);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .story-genre {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #FF6B6B;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-title {
+            font-size: 1.4rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .story-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .story-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .story-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .read-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .read-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close:hover {
+            color: #000;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* Book-style Story Reader */
+        .book-reader {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            max-height: 600px;
+        }
+
+        .book-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .book-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .book-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .book-page {
+            flex: 1;
+            padding: 2rem;
+            background: #fefefe;
+            display: none;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .book-page.active {
+            display: block;
+        }
+
+        .book-page.image-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f8f8;
+        }
+
+        .page-image-placeholder {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 3px dashed #2196f3;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #2196f3;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .page-image-placeholder .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-text {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: left;
+            font-family: 'Georgia', serif;
+            margin-bottom: 2rem;
+        }
+
+        .page-text p {
+            margin-bottom: 1.5rem;
+            text-indent: 2rem;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 1rem;
+            right: 2rem;
+            color: #888;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .book-navigation {
+            background: #f5f5f5;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .page-indicator {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #667eea;
+            transform: scale(1.3);
+        }
+
+        .progress-dot.completed {
+            background: #4CAF50;
+        }
+
+        /* Audio Section */
+        .carousel-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .carousel-slide {
+            display: none;
+            background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide h3 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-slide p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .listen-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .listen-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .carousel-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #667eea;
+        }
+
+        /* Audio Player */
+        .audio-player {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .audio-player h3 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .audio-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            color: #667eea;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        /* Karaoke Text */
+        .story-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            background: #f9f9f9;
+        }
+
+        .word {
+            display: inline;
+            padding: 2px 4px;
+            margin: 0 2px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .word.highlighted {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            font-weight: bold;
+            transform: scale(1.1);
+        }
+
+        .word.played {
+            background: linear-gradient(135deg, #90EE90, #32CD32);
+            color: #333;
+        }
+
+        /* Games Section */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-title {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .game-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-btn {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .memory-game {
+            margin-top: 1rem;
+        }
+
+        .memory-score {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .adventure-game {
+            margin-top: 1rem;
+        }
+
+        .adventure-text {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .choice-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            margin: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .choice-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Special Audio Section */
+        .coming-soon {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .coming-soon h2 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon h3 {
+            color: #FF6B6B;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .coming-soon p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .notify-btn {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .notify-btn::before {
+            content: "⭐";
+            position: absolute;
+            left: -10px;
+            top: -5px;
+            background: #FF6B6B;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-tab {
+                width: 200px;
+            }
+
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 1rem;
+            }
+
+            .story-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Reading Adventures</h1>
+        <p>Fun stories to help beginning readers learn and grow!</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showSection('read-stories')">📚 Read Stories</button>
+        <button class="nav-tab" onclick="showSection('listen-read')">🎧 Listen & Read</button>
+        <button class="nav-tab" onclick="showSection('games')">🎮 Play & Explore</button>
+        <button class="nav-tab" onclick="showSection('special-audio')">⭐ Special Audio</button>
+        <button class="nav-tab" onclick="window.location.href='your-page.html'">📝 Draw</button>
+    </div>
+
+    <!-- Read Stories Section -->
+    <div id="read-stories" class="content-section active">
+        <h2 class="section-title">Reading Stories</h2>
+        <div class="section-subtitle"></div>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterStories('all')">All Stories</button>
+            <button class="filter-btn" onclick="filterStories('animal')">Animal Friends</button>
+        </div>
+
+        <div class="stories-grid" id="stories-grid">
+            <!-- Stories will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Listen & Read Section -->
+    <div id="listen-read" class="content-section">
+        <h2 class="section-title">Listen & Read Along</h2>
+        <div class="section-subtitle"></div>
+        
+        <div class="carousel-container">
+            <div class="carousel" id="audio-carousel">
+                <!-- Carousel slides will be populated by JavaScript -->
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-btn" onclick="previousSlide()">‹</button>
+                <div class="carousel-dots" id="carousel-dots"></div>
+                <button class="carousel-btn" onclick="nextSlide()">›</button>
+            </div>
+        </div>
+
+        <div class="audio-player" id="audio-player" style="display: none;">
+            <h3 id="current-story-title">Story Title</h3>
+            
+            <div class="audio-controls">
+                <button class="control-btn" onclick="playAudio()">▶</button>
+                <button class="control-btn" onclick="pauseAudio()">⏸</button>
+                <button class="control-btn" onclick="restartAudio()">⏮</button>
+            </div>
+
+            <div class="audio-progress">
+                <span class="time-display" id="current-time">00:00</span>
+                <div class="progress-bar" onclick="seekAudio(event)">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="time-display" id="total-time">00:00</span>
+            </div>
+
+            <div class="story-text" id="story-text">
+                <!-- Story text with word highlighting will be populated here -->
+            </div>
+
+            <audio id="audio-element" preload="metadata"></audio>
+        </div>
+    </div>
+
+    <!-- Games Section -->
+    <div id="games" class="content-section">
+        <h2 class="section-title">Fun & Games</h2>
+        <div class="section-subtitle"></div>
+        
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-title">Reading Memory</div>
+                <div class="game-description">
+                    Match the story characters and reading words! Find all pairs to complete the challenge and improve your memory skills.
+                </div>
+                <button class="game-btn" onclick="startMemoryGame()">▶ Start Memory Game</button>
+                <div class="memory-game" id="memory-game" style="display: none;">
+                    <div class="memory-score">Matches: <span id="memory-score">0/8</span></div>
+                    <!-- Memory game grid will be populated here -->
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-title">Reading Adventure Quest</div>
+                <div class="game-description">
+                    Embark on an exciting reading adventure! Help our brave young reader navigate through the Enchanted Library, make important choices, and discover magical books. Each decision you make will lead to different story paths and reading challenges!
+                </div>
+                <button class="game-btn" onclick="startAdventureGame()">▶ Begin Reading Quest</button>
+                <div class="adventure-game" id="adventure-game" style="display: none;">
+                    <div class="adventure-text" id="adventure-text">
+                        Welcome to the Enchanted Library! You are a young reader who has discovered a magical library where books come to life. Your mission is to help the librarian find a missing book that contains the most important story ever written.
+                    </div>
+                    <div id="adventure-choices">
+                        <p>You enter the Enchanted Library and see three magical doorways glowing with different colors. The wise librarian tells you that each door leads to a different section where a missing book might be hidden. Which door do you choose?</p>
+                        <button class="choice-btn" onclick="makeChoice('blue')">🔵 The Blue Door - Animal Stories Section</button>
+                        <button class="choice-btn" onclick="makeChoice('green')">🟢 The Green Door - Adventure Tales Section</button>
+                        <button class="choice-btn" onclick="makeChoice('yellow')">🟡 The Yellow Door - Magical Creatures Section</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Special Audio Section -->
+    <div id="special-audio" class="content-section">
+        <h2 class="section-title">Special Audio Stories</h2>
+        <div class="section-subtitle"></div>
+        
+        <div class="coming-soon">
+            <div class="coming-soon-icon">🪄</div>
+            <h2>Coming Soon!</h2>
+            <h3>Premium Audio Experience</h3>
+            <p>Get ready for an amazing collection of premium audio stories featuring professional voice actors, sound effects, and interactive elements! These special stories will include advanced features like multiple character voices, background music, and enhanced learning activities.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <div class="feature-title">Professional Narration</div>
+                    <div class="feature-desc">Stories read by professional voice actors</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <div class="feature-title">Sound Effects & Music</div>
+                    <div class="feature-desc">Immersive audio with background music</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-title">Character Voices</div>
+                    <div class="feature-desc">Different voices for each character</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <div class="feature-title">Learning Activities</div>
+                    <div class="feature-desc">Interactive comprehension exercises</div>
+                </div>
+            </div>
+            
+            <button class="notify-btn" onclick="notifyWhenAvailable()">⭐ Get Notified When Available</button>
+        </div>
+    </div>
+
+    <!-- Story Modal -->
+    <div id="story-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="book-reader">
+                <div class="book-header">
+                    <h2 class="book-title" id="modal-story-title"></h2>
+                </div>
+                <div class="book-content">
+                    <div id="book-pages">
+                        <!-- Pages will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="book-navigation">
+                    <button class="nav-btn" id="prev-page-btn" onclick="previousPage()">
+                        ← Previous
+                    </button>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="progress-dots" id="progress-dots"></div>
+                        <span class="page-indicator" id="page-indicator">Page 1 of 1</span>
+                    </div>
+                    <button class="nav-btn" id="next-page-btn" onclick="nextPage()">
+                        Next →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#" class="footer-link">📚 Reading Tips</a>
+            <a href="#" class="footer-link">📖 Learning Resources</a>
+            <a href="#" class="footer-link">❤️ About Us</a>
+        </div>
+        <p>&copy; 2024 Reading Adventures | Made with ❤️ for young readers</p>
+    </div>
+
+    <script src="stories-data.js"></script>
+    <script>
+        // Global variables
+        let currentAudioStory = null;
+        let currentTimingData = null;
+        let currentAudio = null;
+        let currentSlide = 0;
+        let isPlaying = false;
+        let currentWordIndex = 0;
+        let currentBookPages = [];
+        let currentPageIndex = 0;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStories();
+            loadAudioCarousel();
+        });
+
+        // Navigation functions
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Load text-only stories
+        function loadStories() {
+            const grid = document.getElementById('stories-grid');
+            grid.innerHTML = '';
+            
+            textOnlyStories.forEach(story => {
+                const storyCard = createStoryCard(story);
+                grid.appendChild(storyCard);
+            });
+        }
+
+        function createStoryCard(story) {
+            const card = document.createElement('div');
+            card.className = 'story-card';
+            card.dataset.genre = story.genre;
+            
+            card.innerHTML = `
+                <div class="story-image" style="background: ${story.image}">
+                    <div class="story-genre">${story.genreName}</div>
+                </div>
+                <div class="story-content">
+                    <h3 class="story-title">${story.title}</h3>
+                    <div class="story-meta">
+                        <span>${story.readingTime}</span>
+                        <span>${story.genreName}</span>
+                    </div>
+                    <p class="story-excerpt">${story.excerpt}</p>
+                    <div class="story-tags">
+                        ${story.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <button class="read-btn" onclick="openStoryModal(${story.id})">Read Story</button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function filterStories(genre) {
+            const cards = document.querySelectorAll('.story-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter cards
+            cards.forEach(card => {
+                if (genre === 'all' || card.dataset.genre === genre) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Book-style story reader functions
+        function openStoryModal(storyId) {
+            const story = textOnlyStories.find(s => s.id === storyId);
+            if (!story) return;
+            
+            document.getElementById('modal-story-title').textContent = story.title;
+            createBookPages(story);
+            document.getElementById('story-modal').style.display = 'block';
+        }
+
+        function createBookPages(story) {
+            const bookPages = document.getElementById('book-pages');
+            bookPages.innerHTML = '';
+            
+            // Split story content into paragraphs
+            const paragraphs = story.content.split('</p>').filter(p => p.trim());
+            
+            // Create pages - mix of image placeholders and text
+            currentBookPages = [];
+            currentPageIndex = 0;
+            
+            // First page - cover/image placeholder
+            currentBookPages.push({
+                type: 'image',
+                content: `
+                    <div class="page-image-placeholder">
+                        <div class="icon">📖</div>
+                        <div>Story illustration will go here</div>
+                        <div style="font-size: 0.9rem; margin-top: 1rem; color: #666;">
+                            Perfect spot for your story images!
+                        </div>
+                    </div>
+                `
+            });
+            
+            // Text pages - 2-3 paragraphs per page for better readability
+            for (let i = 0; i < paragraphs.length; i += 2) {
+                const pageContent = paragraphs.slice(i, i + 2).join('</p>') + '</p>';
+                currentBookPages.push({
+                    type: 'text',
+                    content: pageContent
+                });
+                
+                // Add image placeholder every few pages
+                if ((i + 2) % 4 === 0 && i + 2 < paragraphs.length) {
+                    currentBookPages.push({
+                        type: 'image',
+                        content: `
+                            <div class="page-image-placeholder">
+                                <div class="icon">🎨</div>
+                                <div>Another illustration spot</div>
+                                <div style="font-size: 0.9rem; margin-top: 1rem; color: #666;">
+                                    Add images to bring the story to life!
+                                </div>
+                            </div>
+                        `
+                    });
+                }
+            }
+            
+            // Create page elements
+            currentBookPages.forEach((page, index) => {
+                const pageElement = document.createElement('div');
+                pageElement.className = `book-page ${page.type}-page ${index === 0 ? 'active' : ''}`;
+                
+                if (page.type === 'text') {
+                    pageElement.innerHTML = `
+                        <div class="page-text">${page.content}</div>
+                        <div class="page-number">${index + 1}</div>
+                    `;
+                } else {
+                    pageElement.innerHTML = `
+                        ${page.content}
+                        <div class="page-number">${index + 1}</div>
+                    `;
+                }
+                
+                bookPages.appendChild(pageElement);
+            });
+            
+            updateBookNavigation();
+        }
+
+        function nextPage() {
+            if (currentPageIndex < currentBookPages.length - 1) {
+                currentPageIndex++;
+                updateBookDisplay();
+            }
+        }
+
+        function previousPage() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updateBookDisplay();
+            }
+        }
+
+        function updateBookDisplay() {
+            const pages = document.querySelectorAll('.book-page');
+            pages.forEach((page, index) => {
+                page.classList.toggle('active', index === currentPageIndex);
+            });
+            updateBookNavigation();
+        }
+
+        function updateBookNavigation() {
+            const prevBtn = document.getElementById('prev-page-btn');
+            const nextBtn = document.getElementById('next-page-btn');
+            const pageIndicator = document.getElementById('page-indicator');
+            const progressDots = document.getElementById('progress-dots');
+            
+            // Update buttons
+            prevBtn.disabled = currentPageIndex === 0;
+            nextBtn.disabled = currentPageIndex === currentBookPages.length - 1;
+            
+            // Update page indicator
+            pageIndicator.textContent = `Page ${currentPageIndex + 1} of ${currentBookPages.length}`;
+            
+            // Update progress dots
+            progressDots.innerHTML = '';
+            currentBookPages.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (index === currentPageIndex) {
+                    dot.classList.add('active');
+                } else if (index < currentPageIndex) {
+                    dot.classList.add('completed');
+                }
+                dot.onclick = () => goToPage(index);
+                progressDots.appendChild(dot);
+            });
+        }
+
+        function goToPage(pageIndex) {
+            currentPageIndex = pageIndex;
+            updateBookDisplay();
+        }
+
+        function closeModal() {
+            document.getElementById('story-modal').style.display = 'none';
+            currentBookPages = [];
+            currentPageIndex = 0;
+        }
+
+        // Audio carousel functions
+        function loadAudioCarousel() {
+            const carousel = document.getElementById('audio-carousel');
+            const dots = document.getElementById('carousel-dots');
+            
+            carousel.innerHTML = '';
+            dots.innerHTML = '';
+            
+            audioStories.forEach((story, index) => {
+                // Create slide
+                const slide = document.createElement('div');
+                slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+                slide.innerHTML = `
+                    <h3>${story.title}</h3>
+                    <p>${story.description}</p>
+                    <button class="listen-btn" onclick="loadAudioStory(${story.id})">▶ Listen to This Story</button>
+                `;
+                carousel.appendChild(slide);
+                
+                // Create dot
+                const dot = document.createElement('div');
+                dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => goToSlide(index);
+                dots.appendChild(dot);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % audioStories.length;
+            updateCarousel();
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + audioStories.length) % audioStories.length;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Audio player functions
+        async function loadAudioStory(storyId) {
+            const story = audioStories.find(s => s.id === storyId);
+            if (!story) return;
+            
+            currentAudioStory = story;
+            
+            // Show audio player
+            document.getElementById('audio-player').style.display = 'block';
+            document.getElementById('current-story-title').textContent = story.title;
+            
+            // Load audio file
+            const audio = document.getElementById('audio-element');
+            audio.src = story.audioFile;
+            currentAudio = audio;
+            
+            // Load story text and timing data
+            try {
+                const [textResponse, timingResponse] = await Promise.all([
+                    fetch(story.textFile),
+                    fetch(story.timingFile)
+                ]);
+                
+                const storyText = await textResponse.text();
+                const timingData = await timingResponse.json();
+                
+                currentTimingData = timingData;
+                setupKaraokeText(storyText, timingData);
+                
+            } catch (error) {
+                console.error('Error loading story files:', error);
+                document.getElementById('story-text').innerHTML = '<p>Error loading story content.</p>';
+            }
+            
+            // Setup audio event listeners
+            audio.addEventListener('loadedmetadata', updateDuration);
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', onAudioEnded);
+        }
+
+        function setupKaraokeText(storyText, timingData) {
+            const textContainer = document.getElementById('story-text');
+            
+            if (!timingData.words || timingData.words.length === 0) {
+                textContainer.innerHTML = `<p>${storyText}</p>`;
+                return;
+            }
+            
+            // Create word elements with timing data
+            let htmlContent = '';
+            timingData.words.forEach((wordData, index) => {
+                htmlContent += `<span class="word" data-start="${wordData.start}" data-end="${wordData.end}" data-index="${index}">${wordData.alignedWord || wordData.word}</span> `;
+            });
+            
+            textContainer.innerHTML = htmlContent;
+        }
+
+        function playAudio() {
+            if (currentAudio) {
+                currentAudio.play();
+                isPlaying = true;
+                startWordHighlighting();
+            }
+        }
+
+        function pauseAudio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                isPlaying = false;
+            }
+        }
+
+        function restartAudio() {
+            if (currentAudio) {
+                currentAudio.currentTime = 0;
+                currentWordIndex = 0;
+                clearWordHighlights();
+            }
+        }
+
+        function startWordHighlighting() {
+            if (!currentTimingData || !currentTimingData.words) return;
+            
+            const updateHighlight = () => {
+                if (!isPlaying || !currentAudio) return;
+                
+                const currentTime = currentAudio.currentTime;
+                const words = document.querySelectorAll('.word');
+                
+                // Clear previous highlights
+                words.forEach(word => {
+                    word.classList.remove('highlighted');
+                });
+                
+                // Find and highlight current word
+                currentTimingData.words.forEach((wordData, index) => {
+                    if (currentTime >= wordData.start && currentTime <= wordData.end) {
+                        const wordElement = words[index];
+                        if (wordElement) {
+                            wordElement.classList.add('highlighted');
+                            // Mark previous words as played
+                            for (let i = 0; i < index; i++) {
+                                if (words[i]) {
+                                    words[i].classList.add('played');
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                if (isPlaying) {
+                    requestAnimationFrame(updateHighlight);
+                }
+            };
+            
+            updateHighlight();
+        }
+
+        function clearWordHighlights() {
+            const words = document.querySelectorAll('.word');
+            words.forEach(word => {
+                word.classList.remove('highlighted', 'played');
+            });
+        }
+
+        function updateDuration() {
+            const duration = currentAudio.duration;
+            document.getElementById('total-time').textContent = formatTime(duration);
+        }
+
+        function updateProgress() {
+            if (!currentAudio) return;
+            
+            const currentTime = currentAudio.currentTime;
+            const duration = currentAudio.duration;
+            const progress = (currentTime / duration) * 100;
+            
+            document.getElementById('current-time').textContent = formatTime(currentTime);
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function seekAudio(event) {
+            if (!currentAudio) return;
+            
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const width = rect.width;
+            const percentage = clickX / width;
+            const newTime = percentage * currentAudio.duration;
+            
+            currentAudio.currentTime = newTime;
+        }
+
+        function onAudioEnded() {
+            isPlaying = false;
+            currentWordIndex = 0;
+            clearWordHighlights();
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Game functions
+        function startMemoryGame() {
+            const gameDiv = document.getElementById('memory-game');
+            gameDiv.style.display = 'block';
+            // Memory game implementation would go here
+        }
+
+        function startAdventureGame() {
+            const gameDiv = document.getElementById('adventure-game');
+            gameDiv.style.display = 'block';
+        }
+
+        function makeChoice(choice) {
+            const textDiv = document.getElementById('adventure-text');
+            const choicesDiv = document.getElementById('adventure-choices');
+            
+            let newText = '';
+            let newChoices = '';
+            
+            switch(choice) {
+                case 'blue':
+                    newText = 'You choose the Blue Door and enter a wonderful section filled with animal stories. You see talking cats, brave dogs, and wise owls. A friendly rabbit approaches you with a clue about the missing book.';
+                    newChoices = '<p>The rabbit tells you the missing book might be hidden in one of these places:</p><button class="choice-btn" onclick="makeChoice(\'tree\')">🌳 Inside the hollow tree where the owl lives</button><button class="choice-btn" onclick="makeChoice(\'pond\')">🏞️ By the magical pond where animals drink</button>';
+                    break;
+                case 'green':
+                    newText = 'You step through the Green Door into the Adventure Tales section. Pirates, knights, and explorers surround you with their exciting stories. A brave knight offers to help you search for the missing book.';
+                    newChoices = '<p>The knight suggests looking in these adventurous places:</p><button class="choice-btn" onclick="makeChoice(\'castle\')">🏰 In the treasure room of the enchanted castle</button><button class="choice-btn" onclick="makeChoice(\'ship\')">🚢 Aboard the magical pirate ship</button>';
+                    break;
+                case 'yellow':
+                    newText = 'You enter the Yellow Door and find yourself in the Magical Creatures section. Dragons, unicorns, and fairies dance around you. A wise dragon tells you about the missing book\'s importance.';
+                    newChoices = '<p>The dragon knows the book might be hidden here:</p><button class="choice-btn" onclick="makeChoice(\'crystal\')">💎 Inside the crystal cave of wonders</button><button class="choice-btn" onclick="makeChoice(\'garden\')">🌸 In the fairy garden of eternal spring</button>';
+                    break;
+                default:
+                    newText = 'Congratulations! You found the missing book! It contains the most important story of all - the story of how reading opens up infinite worlds of imagination and learning. The librarian thanks you for your help, and you\'ve completed your reading quest!';
+                    newChoices = '<button class="choice-btn" onclick="startAdventureGame()">🔄 Start New Adventure</button>';
+            }
+            
+            textDiv.textContent = newText;
+            choicesDiv.innerHTML = newChoices;
+        }
+
+        function notifyWhenAvailable() {
+            alert('Thank you for your interest! We\'ll notify you when our premium audio stories are available.');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('story-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
+
