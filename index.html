@@ -917,7 +917,8 @@
         <button class="nav-tab" onclick="showSection('listen-read')">🎧 Listen & Read</button>
         <button class="nav-tab" onclick="showSection('games')">🎮 Play & Explore</button>
         <button class="nav-tab" onclick="showSection('special-audio')">⭐ Special Audio</button>
-        <button class="nav-tab" onclick="window.location.href='your-page.html'">📝 Draw</button>
+        <button class="nav-tab" onclick="window.location.href='drawingpage.html'">📝 Draw</button>
+        <elevenlabs-convai agent-id="agent_01jxpngexrfqrsyz2hhkvy8znp"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
     </div>
 
     <!-- Read Stories Section -->
@@ -1090,6 +1091,18 @@
         </div>
         <p>&copy; 2024 Reading Adventures | Made with ❤️ for young readers</p>
     </div>
+    <script>
+        if (!sessionStorage.getItem("passwordVerified")) {
+  const password = prompt("Please enter the password to use this app:");
+  if (password !== "2019") {
+    alert("Incorrect password. Access denied.");
+    document.body.innerHTML = "<h2>Access denied.</h2>";
+    throw new Error("Access denied");
+  }
+  sessionStorage.setItem("passwordVerified", "true");
+}
+
+</script>
 
     <script src="stories-data.js"></script>
     <script>
